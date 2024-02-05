@@ -4,6 +4,7 @@ import Header from "./Components/Header/Header";
 
 import Carouselslide from "./Carousel/Carouselslide";
 import Catagory from "./Components/Catagories/Catagory";
+import Product from "./Components/Product/Product";
 
 
 const App = () => {
@@ -11,7 +12,8 @@ const App = () => {
 		<>
 			<Header />
 			<Carouselslide />
-			<Catagory/>
+			<Catagory />
+			<Product />
 		</>
 	);
 };
