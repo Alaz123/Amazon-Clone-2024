@@ -3,7 +3,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import images from "./data";
 import classes from "./Carousel.module.css";
-console.log(classes)
+
 
 const Carouselslide = () => {
 	return (

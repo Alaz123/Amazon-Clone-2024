@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../../Components/Layout/Layout";
 import Carouselslide from "../../Carousel/Carouselslide";
 import Catagory from "../../Components/Catagories/Catagory";
@@ -12,7 +12,6 @@ const Landing = () => {
 					<Carouselslide />
 					<Catagory />
 					<Product />
-					
 				</>
 			}
 		/>
