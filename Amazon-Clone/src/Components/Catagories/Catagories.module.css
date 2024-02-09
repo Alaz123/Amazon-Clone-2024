@@ -15,7 +15,7 @@
 	padding: 5px 25px;
 }
 
-.category  {
+.category {
 	text-decoration: none;
 	color: rgb(35, 35, 35);
 }
@@ -25,7 +25,7 @@
 	padding: 5px;
 	margin-left: 15px;
 }
-.category h2{
+.category h2 {
 	font-size: 20px;
 }
 
@@ -51,6 +51,9 @@
 .category_container a:first-child p {
 	margin-top: 32.7px;
 }
+.category_container a:nth-child(2) p {
+	margin-top: 18px;
+}
 
 @media screen and (max-width: 800px) {
 	.category_container {
@@ -73,6 +76,9 @@
 	}
 	.category_container a:first-child p {
 		margin-top: 17.5px;
+	}
+	.category_container a:nth-child(2) p {
+		margin-top: -5;
 	}
 }
 

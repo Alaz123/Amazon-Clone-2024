@@ -35,19 +35,21 @@ const Results = () => {
 		<Layout
 			childrencomponents={
 				<section className={classes.container}>
-					<h1 style={{ padding: "30px" }}>Results</h1>
-					<h2 style={{ padding: "30px" }}>
-						category / <b>{catagoryitem}</b>
-					</h2>
-					<hr />
-{isloding ? (
+					{isloding ? (
 						<Loding />
 					) : (
-						<div className={classes.products__container}>
-							{results?.map((product) => (
-								<Productcard key={product.id} product={product} />
-							))}
-						</div>
+						<>
+							<h1 style={{ padding: "30px" }}>Results</h1>
+							<h2 style={{ padding: "30px" }}>
+								category / <b>{catagoryitem}</b>
+							</h2>
+							<hr />
+							<div className={classes.products__container}>
+								{results?.map((product) => (
+									<Productcard key={product.id} product={product} />
+								))}
+							</div>
+						</>
 					)}
 				</section>
 			}
