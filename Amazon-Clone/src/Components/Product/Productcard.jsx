@@ -6,7 +6,7 @@ import classes from "./Product.module.css";
 import { DataContext } from "../Dataprovider/Dataprovider";
 import { Type } from "../../utility/action.type";
 
-const ProductCard = ({ product, flex, desc }) => {
+const ProductCard = ({ product, flex, desc, addbtn, cart }) => {
 	const { id, image, title, description, rating, price } = product;
 
 	if (!rating) {
@@ -33,6 +33,8 @@ const ProductCard = ({ product, flex, desc }) => {
 		<div
 			className={`${classes.card__container} ${
 				flex ? classes.product__flexed : ""
+			} ${
+				cart ? classes.product__cart : ""
 			}`}
 		>
 			<Link to={`/products/${id}`}>
@@ -48,14 +50,16 @@ const ProductCard = ({ product, flex, desc }) => {
 				<div>
 					<Currencyformater amount={price} />
 				</div>
-				<button
-					className={classes.button}
-					onClick={() => {
-						addtocart();
-					}}
-				>
-					Add to Basket
-				</button>
+				{addbtn && (
+					<button
+						className={classes.button}
+						onClick={() => {
+							addtocart();
+						}}
+					>
+						Add to Basket
+					</button>
+				)}
 			</div>
 		</div>
 	);

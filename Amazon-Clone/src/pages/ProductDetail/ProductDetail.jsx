@@ -35,7 +35,7 @@ const ProductDetail = () => {
 					{isloding ? (
 						<Loding />
 					) : (
-						<ProductCard product={individualproduct} flex={true} desc={true} />
+						<ProductCard product={individualproduct} flex={true} desc={true} addbtn={true} />
 					)}
 				</>
 			}
@@ -45,4 +45,4 @@ const ProductDetail = () => {
 
 export default ProductDetail;
 
-// IT
+

@@ -34,7 +34,7 @@ const Product = () => {
 					<section className={classes.products__container}>
 						{product.map((singleproduct) => {
 							return (
-								<Productcard product={singleproduct} key={singleproduct.id} />
+								<Productcard addbtn={true} product={singleproduct} key={singleproduct.id} />
 							);
 						})}
 					</section>

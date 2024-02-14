@@ -46,7 +46,7 @@ const Results = () => {
 							<hr />
 							<div className={classes.products__container}>
 								{results?.map((product) => (
-									<Productcard key={product.id} product={product} />
+									<Productcard key={product.id} product={product}  addbtn={true} />
 								))}
 							</div>
 						</>
