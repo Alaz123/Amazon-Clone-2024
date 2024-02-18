@@ -1,4 +1,4 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 import classes from "./Header.module.css";
 import AmazonLogo from "../../assets/amazon-logo.png";
 import { BsSearch } from "react-icons/bs";
@@ -7,14 +7,14 @@ import { BiCart } from "react-icons/bi";
 import Lowerheader from "./Lowerheader";
 import { Link } from "react-router-dom";
 import { DataContext } from "../Dataprovider/Dataprovider";
+import { auth } from "../../utility/firebase";
 
 const Header = () => {
-
-	const [{ basket }, dispatch] = useContext(DataContext)
+	const [{ user, basket }, dispatch] = useContext(DataContext);
 	const totalprice = basket?.reduce((amount, item) => {
-		return  item.amount + amount;
+		return item.amount + amount;
 	}, 0);
-	console.log(basket.length)
+	console.log(basket.length);
 	return (
 		<nav className={classes.fixed}>
 			<header className={classes.header__container}>
@@ -53,9 +53,22 @@ const Header = () => {
 						</select>
 					</a>
 					{/* <div className={classes.infos}> */}
-					<Link to="/auth">
-						<p>Hello, sign in</p>
-						<span>Account & Lists</span>
+					<Link to={!user && "/auth"}>
+						<div>
+							{user ? (
+								<>
+									<p>Hello {user?.email.split("@")[0]}</p>
+									<span onClick={() => {
+										auth.signOut();
+									}}>sign out</span>
+								</>
+							) : (
+								<>
+									<p>Hello, sign in</p>
+									<span>Account & Lists</span>
+								</>
+							)}
+						</div>
 					</Link>
 					<Link to="/orders">
 						<p>Returns</p>

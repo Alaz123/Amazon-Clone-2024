@@ -1,11 +1,12 @@
 import React, { useState, useContext } from "react";
 import classes from "./auth.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../utility/firebase";
 import {
 	signInWithEmailAndPassword,
 	createUserWithEmailAndPassword,
 } from "firebase/auth";
+import { ClipLoader } from "react-spinners";
 import { DataContext } from "../../Components/Dataprovider/Dataprovider";
 import { Type } from "../../utility/action.type";
 
@@ -13,9 +14,15 @@ const Auth = () => {
 	const [email, Setemail] = useState("");
 	const [password, Setpassword] = useState("");
 	const [error, Seterror] = useState("");
+	// loding state
+	const [loding, Setloading] = useState({
+		signin: false,
+		signup: false,
+	});
 	const [{ user }, dispatch] = useContext(DataContext);
 	console.log(user);
 	// console.log(email, password);
+	const Navigate = useNavigate();
 	const authHandler = async (e) => {
 		// Prevent the default form submission behavior
 		e.preventDefault();
@@ -25,6 +32,10 @@ const Auth = () => {
 
 		// Check if the form name is 'signin'
 		if (e.target.name === "signin") {
+			Setloading({
+				...loding,
+				signin: true,
+			});
 			// Call the 'signInWithEmailAndPassword' function to sign in the user
 			try {
 				const userInfo = await signInWithEmailAndPassword(
@@ -33,16 +44,29 @@ const Auth = () => {
 					password
 				);
 				// The 'signInWithEmailAndPassword' function returns a promise that resolves to the user information
-				// console.log(userInfo);
+
 				dispatch({
 					type: Type.SET_USER,
 					user: userInfo.user,
 				});
+				Setloading({
+					...loding,
+					signin: false,
+				});
+				Navigate("/");
 			} catch (err) {
+				Setloading({
+					...loding,
+					signin: false,
+				});
 				// Handle any errors that occur during sign-in
-				console.log(err.message);
+				Seterror(err.message);
 			}
 		} else {
+			Setloading({
+				...loding,
+				signup: true,
+			});
 			// Call the 'createUserWithEmailAndPassword' function to create a new user
 			try {
 				const userInfo = await createUserWithEmailAndPassword(
@@ -51,14 +75,23 @@ const Auth = () => {
 					password
 				);
 				// The 'createUserWithEmailAndPassword' function returns a promise that resolves to the user information
-				// console.log(userInfo);
+
 				dispatch({
 					type: Type.SET_USER,
 					user: userInfo.user,
 				});
+				Setloading({
+					...loding,
+					signup: false,
+				});
+				Navigate("/");
 			} catch (err) {
+				Setloading({
+					...loding,
+					signup: false,
+				});
 				// Handle any errors that occur during user creation
-				console.log(err.message);
+				Seterror(err.message);
 			}
 		}
 	};
@@ -101,32 +134,40 @@ const Auth = () => {
 							}}
 						/>
 					</div>
-
-					<button
-						type="submit"
-						name="signin"
-						onClick={authHandler}
-						className={classes.login__signinbtn}
-					>
-						Sign In
-					</button>
-					{/* agremment  */}
-					<p>
-						By signing-in you agree to the AMAZON FAKE CLONE Conditions of Use &
-						Sale. Please see our Privacy Notice, our Cookies Notice and our
-						Interest-Based Ads Notice.
-					</p>
-
-					{/* create account btn */}
-					<button
-						type="submit"
-						name="signup"
-						onClick={authHandler}
-						className={classes.login__registerbtn}
-					>
-						Create your Amazon Account
-					</button>
 				</form>
+				<button
+					type="submit"
+					name="signin"
+					onClick={authHandler}
+					className={classes.login__signinbtn}
+				>
+					{loding.signin ? (
+						<ClipLoader  size={15} color={"#000"} />
+					) : (
+						"Sign In"
+					)}
+				</button>
+				{/* agremment  */}
+				<p>
+					By signing-in you agree to the AMAZON FAKE CLONE Conditions of Use &
+					Sale. Please see our Privacy Notice, our Cookies Notice and our
+					Interest-Based Ads Notice.
+				</p>
+
+				{/* create account btn */}
+				<button
+					type="submit"
+					name="signup"
+					onClick={authHandler}
+					className={classes.login__registerbtn}
+				>
+					{loding.signup ? (
+						<ClipLoader size={15} color={"#000"} />
+					) : (
+						"	Create your Amazon Account"
+					)}
+				</button>
+				{error && <small className={classes.error}>{error}</small>}
 			</div>
 		</section>
 	);
