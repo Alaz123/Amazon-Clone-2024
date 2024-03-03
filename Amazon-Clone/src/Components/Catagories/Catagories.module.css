@@ -45,6 +45,7 @@
 
 	place-items: center;
 	grid-gap: 10px;
+	/* gap: 0px; */
 
 	margin-left: 44px;
 }

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import classes from "./auth.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { auth } from "../../utility/firebase";
 import {
 	signInWithEmailAndPassword,
@@ -23,6 +23,8 @@ const Auth = () => {
 	console.log(user);
 	// console.log(email, password);
 	const Navigate = useNavigate();
+	const navStateData = useLocation();
+	console.log(navStateData);
 	const authHandler = async (e) => {
 		// Prevent the default form submission behavior
 		e.preventDefault();
@@ -53,7 +55,7 @@ const Auth = () => {
 					...loding,
 					signin: false,
 				});
-				Navigate("/");
+				Navigate(navStateData?.state?.redirect || "/");
 			} catch (err) {
 				Setloading({
 					...loding,
@@ -84,7 +86,7 @@ const Auth = () => {
 					...loding,
 					signup: false,
 				});
-				Navigate("/");
+				Navigate(navStateData?.state?.redirect || "/");
 			} catch (err) {
 				Setloading({
 					...loding,
@@ -107,6 +109,18 @@ const Auth = () => {
 			{/* form  */}
 			<div className={classes.login__container}>
 				<h1>Sign In </h1>
+				{navStateData?.state?.msg && (
+					<small
+						style={{
+							padding: "5px",
+							textAlign: "center",
+							color: "red",
+							fontWeight: "bold",
+						}}
+					>
+						{navStateData?.state?.msg}
+					</small>
+				)}
 				<form action="">
 					<div>
 						<label htmlFor="email">Email</label>
@@ -141,11 +155,7 @@ const Auth = () => {
 					onClick={authHandler}
 					className={classes.login__signinbtn}
 				>
-					{loding.signin ? (
-						<ClipLoader  size={15} color={"#000"} />
-					) : (
-						"Sign In"
-					)}
+					{loding.signin ? <ClipLoader size={15} color={"#000"} /> : "Sign In"}
 				</button>
 				{/* agremment  */}
 				<p>
