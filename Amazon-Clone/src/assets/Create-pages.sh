@@ -5,7 +5,7 @@ folders=("Auth" "Cart" "Landing" "Orders" "Payment" "ProductDetail" "Results")
 
 # Associative array of file names for each folder
 declare -A files=(
-    ["Auth"]="Signup.jsx Signup.module.css"
+    ["Auth"]="Auth.jsx Auth.module.css"
     ["Cart"]="Cart.jsx Cart.module.css"
     ["Landing"]="Landing.jsx Landing.module.css"
     ["Orders"]="Orders.jsx Landing.module.css"
